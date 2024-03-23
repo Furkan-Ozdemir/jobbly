@@ -1,0 +1,10 @@
+.tag {
+  display: inline-block;
+  color: var(--green);
+  background-color: var(--light-green);
+  border: 1px solid var(--green);
+  border-radius: 2rem;
+  padding: 0.3rem 1rem;
+  margin: 0.5rem 1rem;
+  text-transform: uppercase;
+}

@@ -11,3 +11,30 @@
 .section header {
   padding-left: 2rem;
 }
+.jobsTags {
+  font-size: 2rem;
+  padding: 1rem;
+  background-color: var(--yellow);
+  border: 1px solid var(--green);
+}
+.jobsFiltering {
+  font-size: 2rem;
+  /* padding: 1rem; */
+  background-color: var(--yellow);
+  border: 1px solid var(--green);
+  display: grid;
+  grid-template-columns: repeat(5, minmax(100px, 1fr));
+}
+.jobsFiltering > * {
+  padding: 1rem;
+  background-color: var(--yellow);
+  border-right: 1px solid var(--green);
+  border-left: 1px solid var(--green);
+  border-bottom: 1px solid var(--green);
+  border-top: none;
+}
+
+.jobsFiltering > input:active,
+.jobsFiltering > input:focus {
+  outline: none;
+}

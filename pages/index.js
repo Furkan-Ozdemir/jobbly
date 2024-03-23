@@ -1,5 +1,23 @@
 import Image from "next/image";
 import styles from "@/styles/index.module.css";
+import Tag from "@/components/Tag";
+
+const TAGS = [
+  "Marketing",
+  "Engineering",
+  "Design",
+  "Product",
+  "Sales",
+  "Finance",
+  "Operations",
+  "Customer Support",
+  "Data",
+  "Legal",
+  "HR",
+  "IT",
+  "Admin",
+  "Other",
+];
 
 export default function Home() {
   return (
@@ -14,6 +32,21 @@ export default function Home() {
           width={500}
           height={500}
         />
+      </section>
+      <section className={styles.jobsTags}>
+        <div className={styles.tags}>
+          <span>Popular Search:</span>
+          {TAGS.map((tag) => (
+            <Tag key={tag}>{tag}</Tag>
+          ))}
+        </div>
+      </section>
+      <section className={styles.jobsFiltering}>
+        <div className={styles.filter}>Job title or keyword</div>
+        <input type="text" placeholder="Designer" />
+        <input type="text" placeholder="Level" />
+        <input type="text" placeholder="Location" />
+        <input type="text" placeholder="Job Types" />
       </section>
     </>
   );
