@@ -22,19 +22,29 @@
   /* padding: 1rem; */
   background-color: var(--yellow);
   border: 1px solid var(--green);
+  border-top: none;
   display: grid;
   grid-template-columns: repeat(5, minmax(100px, 1fr));
 }
-.jobsFiltering > * {
+.jobsFiltering .filter {
   padding: 1rem;
-  background-color: var(--yellow);
-  border-right: 1px solid var(--green);
-  border-left: 1px solid var(--green);
-  border-bottom: 1px solid var(--green);
+}
+.inputContainer {
+  border: 1px solid var(--green);
   border-top: none;
+  border-bottom: none;
+  border-right: none;
+}
+.inputContainer input {
+  width: 100%;
+  padding: 1.5rem;
+  border: none;
+  outline: none;
+  background-color: var(--yellow);
+  font-size: 1.5rem;
 }
 
-.jobsFiltering > input:active,
-.jobsFiltering > input:focus {
-  outline: none;
+.inputContainer input::placeholder {
+  color: var(--green);
+  font-size: 1.5rem;
 }

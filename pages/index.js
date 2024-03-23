@@ -10,7 +10,6 @@ const TAGS = [
   "Sales",
   "Finance",
   "Operations",
-  "Customer Support",
   "Data",
   "Legal",
   "HR",
@@ -43,10 +42,18 @@ export default function Home() {
       </section>
       <section className={styles.jobsFiltering}>
         <div className={styles.filter}>Job title or keyword</div>
-        <input type="text" placeholder="Designer" />
-        <input type="text" placeholder="Level" />
-        <input type="text" placeholder="Location" />
-        <input type="text" placeholder="Job Types" />
+        <div className={styles.inputContainer}>
+          <input type="text" placeholder="Designer" />
+        </div>
+        <div className={styles.inputContainer}>
+          <input type="text" placeholder="Level" />
+        </div>
+        <div className={styles.inputContainer}>
+          <input type="text" placeholder="Location" />
+        </div>
+        <div className={styles.inputContainer}>
+          <input type="text" placeholder="Job Types" />
+        </div>
       </section>
     </>
   );
