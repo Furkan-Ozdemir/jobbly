@@ -1,0 +1,29 @@
+.nav {
+  font-size: 2rem;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(100px, 1fr));
+  color: var(--white);
+  background-color: var(--green);
+  padding: 1rem 2rem;
+}
+.nav > a:first-child {
+  justify-self: center;
+}
+.nav a {
+  text-decoration: none;
+}
+.nav a:visited {
+  color: var(--white);
+}
+.nav a:link {
+  color: var(--white);
+}
+.nav .login {
+  place-self: end;
+  display: grid;
+  place-items: center;
+  gap: 1rem;
+}
+.nav .internships {
+  justify-self: end;
+}

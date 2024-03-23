@@ -1,0 +1,13 @@
+.section {
+  display: flex;
+  background-color: var(--green);
+  color: var(--white);
+  text-transform: uppercase;
+  font-size: 4rem;
+  padding-top: 5rem;
+  align-items: center;
+}
+
+.section header {
+  padding-left: 2rem;
+}
