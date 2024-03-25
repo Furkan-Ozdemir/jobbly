@@ -17,6 +17,48 @@ const TAGS = [
   "Admin",
   "Other",
 ];
+const jobListings = [
+  {
+    company: "HUBX",
+    role: "Software Developer (New Grad)",
+    datePosted: {
+      span1: "POSTED",
+      span2: "2",
+      span3: "DAYS AGO",
+    },
+    skills: ["Next.js", "CSS", "Frontend", "React"],
+  },
+  {
+    company: "DoorDash",
+    role: "Software Developer (New Grad)",
+    datePosted: {
+      span1: "POSTED",
+      span2: "1",
+      span3: "DAY AGO",
+    },
+    skills: ["JavaScript", "HTML", "CSS", "Node.js"],
+  },
+  {
+    company: "Google",
+    role: "Software Engineer, New Grad",
+    datePosted: {
+      span1: "POSTED",
+      span2: "3",
+      span3: "DAYS AGO",
+    },
+    skills: ["Java", "Python", "C++", "JavaScript"],
+  },
+  {
+    company: "NVIDIA",
+    role: "Software Engineer - New College Graduate",
+    datePosted: {
+      span1: "POSTED",
+      span2: "1",
+      span3: "WEEK AGO",
+    },
+    skills: ["C/C++", "CUDA", "Python", "Machine Learning"],
+  },
+];
 
 export default function Home() {
   return (
@@ -54,6 +96,30 @@ export default function Home() {
         <div className={styles.inputContainer}>
           <input type="text" placeholder="Job Types" />
         </div>
+      </section>
+      <section className={styles.jobs}>
+        <ul>
+          {jobListings.map((job) => (
+            <li key={job.company}>
+              <div className="flex spaceBetween">
+                <div>
+                  <h2 className={styles.company}>{job.company}</h2>
+                  <p className={styles.role}>{job.role}</p>
+                </div>
+                <div className={`flexColumn ${styles.date}`}>
+                  <span>{job.datePosted.span1}</span>
+                  <span>{job.datePosted.span2}</span>
+                  <span>{job.datePosted.span3}</span>
+                </div>
+              </div>
+              <div className={styles.skills}>
+                {job.skills.map((skill) => (
+                  <Tag key={skill}>{skill}</Tag>
+                ))}
+              </div>
+            </li>
+          ))}
+        </ul>
       </section>
     </>
   );

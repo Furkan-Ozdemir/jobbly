@@ -17,3 +17,32 @@ body {
 html {
   font-size: 62.5%;
 }
+
+.flexCenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.flex {
+  display: flex;
+}
+.flexColumn {
+  display: flex;
+  flex-direction: column;
+}
+.spaceBetween {
+  justify-content: space-between;
+}
+.alignCenter {
+  align-items: center;
+}
+.justifyCenter {
+  justify-content: center;
+}
+li:not(:last-child) {
+  list-style: none;
+  border-bottom: 1px solid var(--green);
+}
+ul {
+  padding: 0;
+}

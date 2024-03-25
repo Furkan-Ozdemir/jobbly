@@ -19,10 +19,22 @@ export default function index() {
             TypeScript experience, including concepts like functional and
             asynchronous programming.
           </li>
-          <li style={{ textDecoration: "line-through" }}>
-            Good knowledge of HTML, CSS, TypeScript, React, Next.js.
+          <li>
+            <span style={{ textDecoration: "line-through" }}>
+              Good knowledge of HTML, CSS,
+            </span>
+            TypeScript,
+            <span style={{ textDecoration: "line-through" }}>
+              React, Next.js.
+            </span>
           </li>
-          <li>Experience with REST API and GraphQL services.</li>
+          <li>
+            {" "}
+            <span style={{ textDecoration: "line-through" }}>
+              Experience with REST API
+            </span>{" "}
+            and GraphQL services.
+          </li>
           <li>
             Experience with content management systems like Keystone.js, Strapi
             and Sanity.
@@ -38,7 +50,9 @@ export default function index() {
           <li style={{ textDecoration: "line-through" }}>
             Familiarity with UI/UX design.
           </li>
-          <li>Familiarity using Scrum/Agile development methodologies.</li>
+          <li style={{ textDecoration: "line-through" }}>
+            Familiarity using Scrum/Agile development methodologies.
+          </li>
           <li style={{ textDecoration: "line-through" }}>
             Teamwork skills with a problem-solving attitude.
           </li>

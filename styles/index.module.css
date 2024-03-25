@@ -10,6 +10,7 @@
 
 .section header {
   padding-left: 2rem;
+  flex: 1;
 }
 .jobsTags {
   font-size: 2rem;
@@ -47,4 +48,32 @@
 .inputContainer input::placeholder {
   color: var(--green);
   font-size: 1.5rem;
+}
+.jobs {
+  border-bottom: 1px solid var(--green);
+}
+.jobs li {
+  background-color: var(--yellow);
+}
+.jobs .company {
+  font-size: 4rem;
+  padding-left: 2rem;
+}
+.jobs .role {
+  font-size: 4rem;
+  padding-left: 2rem;
+  color: var(--green);
+}
+.jobs .skills {
+  padding-left: 1rem;
+}
+.jobs .date {
+  font-size: 1.5rem;
+  text-align: center;
+  padding-right: 1rem;
+  padding-top: 1rem;
+}
+.jobs .date span:nth-child(2) {
+  font-weight: bold;
+  font-size: 4rem;
 }

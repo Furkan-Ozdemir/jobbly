@@ -6,9 +6,7 @@
   background-color: var(--green);
   padding: 1rem 2rem;
 }
-.nav > a:first-child {
-  justify-self: center;
-}
+
 .nav a {
   text-decoration: none;
 }
