@@ -55,6 +55,10 @@
 .jobs li {
   background-color: var(--yellow);
 }
+.jobs li:hover {
+  background-color: var(--hover-yellow);
+  cursor: pointer;
+}
 .jobs .company {
   font-size: 4rem;
   padding-left: 2rem;

@@ -1,7 +1,11 @@
 import Image from "next/image";
 import styles from "@/styles/index.module.css";
 import Tag from "@/components/Tag";
-
+import gsap from "gsap"; // <-- import GSAP
+import { useGSAP } from "@gsap/react"; // <-- import the hook from our React package
+import { useRef } from "react";
+import { TextPlugin } from "gsap/dist/TextPlugin";
+gsap.registerPlugin(useGSAP, TextPlugin);
 const TAGS = [
   "Marketing",
   "Engineering",
@@ -29,7 +33,7 @@ const jobListings = [
     skills: ["Next.js", "CSS", "Frontend", "React"],
   },
   {
-    company: "DoorDash",
+    company: "Codeway",
     role: "Software Developer (New Grad)",
     datePosted: {
       span1: "POSTED",
@@ -61,11 +65,29 @@ const jobListings = [
 ];
 
 export default function Home() {
+  const ref = useRef(null);
+  useGSAP(() => {
+    const tl = gsap.timeline({
+      defaults: { duration: 1, delay: 1.5 },
+      repeat: -1,
+      repeatDelay: 2,
+    });
+
+    tl.to(ref.current, {
+      text: "Don't lose hope",
+    })
+      .to(ref.current, {
+        text: "At least not until you've tried Jobbly",
+      })
+      .to(ref.current, {
+        text: ref.current.textContent,
+      });
+  });
   return (
     <>
       <section className={styles.section}>
         <header>
-          <h1>find your next exciting internship</h1>
+          <h1 ref={ref}>find your next exciting internship</h1>
         </header>
         <Image
           src="/images/read.png"
