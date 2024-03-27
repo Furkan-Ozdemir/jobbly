@@ -2,8 +2,10 @@ import Image from "next/image";
 import React from "react";
 import styles from "./styles.module.css";
 import Tag from "@/components/Tag";
+import Loader from "@/components/Loader";
+
 export default function jobid({ job }) {
-  if (!job) return <div style={{ fontSize: "2rem" }}>loading...</div>;
+  if (!job) return <Loader />;
   return (
     <>
       <section className={styles.section}>
@@ -49,11 +51,19 @@ export default function jobid({ job }) {
       <section className={styles.jobExplanations}>
         <div>
           <p className={styles.about_the_role}>
-            <h5>About the role</h5>
+            <p>
+              <em>
+                <b>About the role:</b>
+              </em>
+            </p>
             {job.about_the_role}
           </p>
           <ul className={styles.skills}>
-            <h5>Required Skills</h5>
+            <p>
+              <em>
+                <b>Required Skills</b>
+              </em>
+            </p>
 
             {job.required_skills.split(",").map((skill) => (
               <li key={skill}>{skill}</li>
