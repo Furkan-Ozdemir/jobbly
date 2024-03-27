@@ -5,6 +5,7 @@ import gsap from "gsap"; // <-- import GSAP
 import { useGSAP } from "@gsap/react"; // <-- import the hook from our React package
 import { useRef } from "react";
 import { TextPlugin } from "gsap/dist/TextPlugin";
+import Link from "next/link";
 gsap.registerPlugin(useGSAP, TextPlugin);
 const TAGS = [
   "Marketing",
@@ -122,26 +123,28 @@ export default function Home({ data }) {
       <section className={styles.jobs}>
         <ul>
           {data.map((job) => (
-            <li key={job.company}>
-              <div className="flex spaceBetween">
-                <div>
-                  <h2 className={styles.company}>{job.company}</h2>
-                  <p className={styles.role}>{job.role}</p>
+            <li key={job.id}>
+              <Link href={`/jobs/${job.id}`}>
+                <div className="flex spaceBetween">
+                  <div>
+                    <h2 className={styles.company}>{job.company}</h2>
+                    <p className={styles.role}>{job.role}</p>
+                  </div>
+                  <div className={`flexColumn ${styles.date}`}>
+                    <span>POSTED</span>
+                    <span>{job.datePosted.split(" ")[0]}</span>
+                    <span>
+                      {job.datePosted.split(" ")[1]}{" "}
+                      {job.datePosted.split(" ")[2]}
+                    </span>
+                  </div>
                 </div>
-                <div className={`flexColumn ${styles.date}`}>
-                  <span>POSTED</span>
-                  <span>{job.datePosted.split(" ")[0]}</span>
-                  <span>
-                    {job.datePosted.split(" ")[1]}{" "}
-                    {job.datePosted.split(" ")[2]}
-                  </span>
+                <div className={styles.skills}>
+                  {job.skills.split(",").map((skill) => (
+                    <Tag key={skill}>{skill}</Tag>
+                  ))}
                 </div>
-              </div>
-              <div className={styles.skills}>
-                {job.skills.map((skill) => (
-                  <Tag key={skill}>{skill}</Tag>
-                ))}
-              </div>
+              </Link>
             </li>
           ))}
         </ul>
