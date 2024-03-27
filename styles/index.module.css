@@ -63,6 +63,9 @@
   font-size: 4rem;
   padding-left: 2rem;
 }
+.jobs li:not(:last-child) {
+  border-bottom: 1px solid var(--green);
+}
 .jobs .role {
   font-size: 4rem;
   padding-left: 2rem;

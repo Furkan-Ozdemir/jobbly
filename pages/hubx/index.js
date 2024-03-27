@@ -16,8 +16,10 @@ export default function index() {
             components.
           </li>
           <li>
-            TypeScript experience, including concepts like functional and
-            asynchronous programming.
+            TypeScript experience, including concepts like{" "}
+            <span style={{ textDecoration: "line-through" }}>
+              functional and asynchronous programming.
+            </span>
           </li>
           <li>
             <span style={{ textDecoration: "line-through" }}>
@@ -44,8 +46,9 @@ export default function index() {
             performance problems using tools like Lighthouse.
           </li>
           <li>
-            Optionally experience with web animations using libraries like GSAP
-            and Framer Motion.
+            Optionally experience with web animations using libraries like{" "}
+            <span style={{ textDecoration: "line-through" }}>GSAP</span> and
+            Framer Motion.
           </li>
           <li style={{ textDecoration: "line-through" }}>
             Familiarity with UI/UX design.

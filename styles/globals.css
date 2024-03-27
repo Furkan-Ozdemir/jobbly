@@ -42,7 +42,6 @@ html {
 }
 li:not(:last-child) {
   list-style: none;
-  border-bottom: 1px solid var(--green);
 }
 ul {
   padding: 0;
