@@ -48,8 +48,13 @@ export default function jobid({ job }) {
       </section>
       <main className={styles.jobExplanations}>
         <div>
-          <p className={styles.about_the_role}>{job.about_the_role}</p>
+          <p className={styles.about_the_role}>
+            <h5>About the role</h5>
+            {job.about_the_role}
+          </p>
           <ul className={styles.skills}>
+            <h5>Required Skills</h5>
+
             {job.required_skills.split(",").map((skill) => (
               <li key={skill}>{skill}</li>
             ))}
