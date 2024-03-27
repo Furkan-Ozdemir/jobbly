@@ -1,8 +1,44 @@
+import Image from "next/image";
 import React from "react";
-
+import styles from "./styles.module.css";
 export default function jobid({ job }) {
   if (!job) return <div style={{ fontSize: "2rem" }}>loading...</div>;
-  return <div style={{ fontSize: "2rem" }}>{job.role}</div>;
+  return (
+    <>
+      <section className={styles.section}>
+        <header>
+          <p>{job.company}</p>
+          <h1>{job.role}</h1>
+        </header>
+        <Image
+          src="/images/inspecting.png"
+          alt="a monitor with a documents on it"
+          width={400}
+          height={400}
+        />
+      </section>
+      <section>
+        <div className={styles.jobDetails}>
+          <div>
+            <p>Location</p>
+            <p>{job.location}</p>
+          </div>
+          <div>
+            <p>Job Type</p>
+            <p>{job.job_type}</p>
+          </div>
+          <div>
+            <p>Job Posted</p>
+            <p>{job.datePosted}</p>
+          </div>
+          <div>
+            <p>Applications Close</p>
+            <p>{job.deadline}</p>
+          </div>
+        </div>
+      </section>
+    </>
+  );
 }
 async function getData() {
   const res = await fetch(

@@ -22,48 +22,6 @@ const TAGS = [
   "Admin",
   "Other",
 ];
-const jobListings = [
-  {
-    company: "HUBX",
-    role: "Software Developer (New Grad)",
-    datePosted: {
-      span1: "POSTED",
-      span2: "2",
-      span3: "DAYS AGO",
-    },
-    skills: ["Next.js", "CSS", "Frontend", "React"],
-  },
-  {
-    company: "Codeway",
-    role: "Software Developer (New Grad)",
-    datePosted: {
-      span1: "POSTED",
-      span2: "1",
-      span3: "DAY AGO",
-    },
-    skills: ["JavaScript", "HTML", "CSS", "Node.js"],
-  },
-  {
-    company: "Google",
-    role: "Software Engineer, New Grad",
-    datePosted: {
-      span1: "POSTED",
-      span2: "3",
-      span3: "DAYS AGO",
-    },
-    skills: ["Java", "Python", "C++", "JavaScript"],
-  },
-  {
-    company: "NVIDIA",
-    role: "Software Engineer - New College Graduate",
-    datePosted: {
-      span1: "POSTED",
-      span2: "1",
-      span3: "WEEK AGO",
-    },
-    skills: ["C/C++", "CUDA", "Python", "Machine Learning"],
-  },
-];
 
 export default function Home({ data }) {
   const ref = useRef(null);
