@@ -6,6 +6,8 @@ import { useGSAP } from "@gsap/react"; // <-- import the hook from our React pac
 import { useRef } from "react";
 import { TextPlugin } from "gsap/dist/TextPlugin";
 import Link from "next/link";
+import useSWRInfinite from "swr/infinite";
+
 gsap.registerPlugin(useGSAP, TextPlugin);
 const TAGS = [
   "Marketing",
@@ -54,6 +56,7 @@ export default function Home({ data }) {
           alt="Student looking for an internship"
           width={500}
           height={500}
+          priority
         />
       </section>
       <section className={styles.jobsTags}>
