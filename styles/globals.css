@@ -40,9 +40,6 @@ html {
 .justifyCenter {
   justify-content: center;
 }
-li:not(:last-child) {
-  list-style: none;
-}
 ul {
   padding: 0;
 }

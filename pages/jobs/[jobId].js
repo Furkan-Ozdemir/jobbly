@@ -1,6 +1,7 @@
 import Image from "next/image";
 import React from "react";
 import styles from "./styles.module.css";
+import Tag from "@/components/Tag";
 export default function jobid({ job }) {
   if (!job) return <div style={{ fontSize: "2rem" }}>loading...</div>;
   return (
@@ -37,6 +38,24 @@ export default function jobid({ job }) {
           </div>
         </div>
       </section>
+      <section className={styles.jobsTags}>
+        <div className={styles.tags}>
+          <span>Perks:</span>
+          {job.perks.split(",").map((tag) => (
+            <Tag key={tag}>{tag}</Tag>
+          ))}
+        </div>
+      </section>
+      <main className={styles.jobExplanations}>
+        <div>
+          <p className={styles.about_the_role}>{job.about_the_role}</p>
+          <ul className={styles.skills}>
+            {job.required_skills.split(",").map((skill) => (
+              <li key={skill}>{skill}</li>
+            ))}
+          </ul>
+        </div>
+      </main>
     </>
   );
 }
@@ -53,9 +72,10 @@ export async function getStaticProps(context) {
   //belki graphql ile yaparsin
   const { params } = context;
   const jobId = params.jobId;
-  console.log("running2");
   const data = await getData();
   const job = data.find((job) => job.id === jobId);
+  if (!job) return { notFound: true };
+
   return {
     props: {
       job,

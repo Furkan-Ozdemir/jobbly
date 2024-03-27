@@ -54,6 +54,7 @@
 }
 .jobs li {
   background-color: var(--yellow);
+  list-style: none;
 }
 .jobs li:hover {
   background-color: var(--hover-yellow);

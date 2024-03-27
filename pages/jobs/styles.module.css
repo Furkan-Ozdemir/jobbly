@@ -25,11 +25,35 @@
   padding: 1rem;
   background-color: var(--yellow);
   border-right: 1px solid var(--green);
-  border-bottom: 1px solid var(--green);
 }
 .jobDetails div > p:first-child {
   font-size: 1.5rem;
 }
 .jobDetails div > p:last-child {
   font-size: 2rem;
+}
+.jobsTags {
+  font-size: 2rem;
+  padding: 1rem;
+  background-color: var(--yellow);
+  border: 1px solid var(--green);
+}
+.jobExplanations {
+  background-color: var(--yellow);
+  text-align: justify;
+}
+.jobExplanations > div {
+  display: grid;
+  gap: 4rem;
+  grid-template-columns: 1fr 1fr;
+}
+.about_the_role {
+  font-size: 2rem;
+  padding: 1rem;
+  background-color: var(--yellow);
+}
+.skills {
+  font-size: 2rem;
+  padding: 1rem;
+  background-color: var(--yellow);
 }
