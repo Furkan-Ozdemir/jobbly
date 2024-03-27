@@ -46,7 +46,7 @@ export default function jobid({ job }) {
           ))}
         </div>
       </section>
-      <main className={styles.jobExplanations}>
+      <section className={styles.jobExplanations}>
         <div>
           <p className={styles.about_the_role}>
             <h5>About the role</h5>
@@ -60,7 +60,7 @@ export default function jobid({ job }) {
             ))}
           </ul>
         </div>
-      </main>
+      </section>
     </>
   );
 }
@@ -73,7 +73,7 @@ async function getData() {
 }
 
 export async function getStaticProps(context) {
-  // Burayi sonradan duzelt tum datayi cekmesin
+  //TODO Burayi sonradan duzelt tum datayi cekmesin
   //belki graphql ile yaparsin
   const { params } = context;
   const jobId = params.jobId;

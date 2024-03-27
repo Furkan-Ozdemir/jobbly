@@ -24,6 +24,7 @@ const TAGS = [
 ];
 
 export default function Home({ data }) {
+  //TODO useSwr kullanarak load more butonu yapılabilir
   const ref = useRef(null);
   useGSAP(() => {
     const tl = gsap.timeline({
