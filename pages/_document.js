@@ -23,6 +23,7 @@ export default function Document() {
           content="Jobbly is an internship/new grad role finder app."
         />
         <meta property="og:type" content="website" />
+        <meta name="robots" content="index, follow" />
       </Head>
       <body>
         <Main />
