@@ -3,11 +3,19 @@ import React from "react";
 import styles from "./styles.module.css";
 import Tag from "@/components/Tag";
 import Loader from "@/components/Loader";
+import Head from "next/head";
 
 export default function jobid({ job }) {
   if (!job) return <Loader />;
   return (
     <>
+      <Head>
+        <title>{job.role + " at " + job.company}</title>
+        <meta
+          name="description"
+          content={`Jobbly is an internship/new grad role finder app. ${job.role} at ${job.company}`}
+        />
+      </Head>
       <section className={styles.section}>
         <header>
           <p>{job.company}</p>
