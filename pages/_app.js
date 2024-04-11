@@ -3,6 +3,7 @@ import "@/styles/globals.css";
 import { ibmPlexSansHebrew } from "@/utils/fonts";
 import Layout from "@/components/Layout";
 import { SessionProvider } from "next-auth/react";
+import { Toaster } from "react-hot-toast";
 
 export default function App({
   Component,
@@ -22,6 +23,15 @@ export default function App({
         `}</style>
         <Component {...pageProps} />
       </Layout>
+      <Toaster
+        toastOptions={{
+          style: {
+            fontSize: "1.5rem",
+            minWidth: "250px",
+          },
+          duration: 3000,
+        }}
+      />
     </SessionProvider>
   );
 }

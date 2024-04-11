@@ -11,22 +11,24 @@ export default async function handler(req, res) {
     .collection("users")
     .findOne({ email: req.body.email });
   if (existingUser) {
-    res.status(422).json({ message: "User exists already!" });
+    res.status(422).json({ message: "User already exists!", ok: false });
+    res.body = "User exists already!";
     client.close();
     return;
   }
-  const { email, password } = req.body;
+  const { email, password, name } = req.body;
   if (
     !email ||
     !email.includes("@") ||
     !password ||
-    password.trim().length < 7
+    password.trim().length < 7 ||
+    !name
   ) {
-    res.status(422).json({ message: "Invalid input" });
+    res.status(422).json({ message: "Invalid input", ok: false });
     client.close();
     return;
   }
   const hashedPassword = await bcrypt.hash(password, 12);
-  db.collection("users").insertOne({ email, password: hashedPassword });
-  res.status(201).json({ message: "Created user!" });
+  db.collection("users").insertOne({ email, password: hashedPassword, name });
+  res.status(201).json({ message: "Created user!", ok: true });
 }

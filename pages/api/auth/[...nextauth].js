@@ -24,7 +24,7 @@ export const authOptions = {
           throw new Error("No user found or wrong password");
         }
         client.close();
-        return { email: user.email };
+        return { email: user.email, name: user.name };
       },
     }),
   ],
