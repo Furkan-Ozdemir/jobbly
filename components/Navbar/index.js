@@ -10,8 +10,8 @@ export default function index() {
         <Link href="/internships">Internships</Link>
       </div>
       <div className={styles.login}>
-        <Link href="/signup">Sign Up</Link>
-        <Link href="/login">Login</Link>
+        <Link href="/auth?action=signup">Sign Up</Link>
+        <Link href="/auth?action=login">Login</Link>
       </div>
     </nav>
   );

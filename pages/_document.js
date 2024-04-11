@@ -8,7 +8,6 @@ export default function Document() {
           name="description"
           content="Jobbly is an internship/new grad role finder app."
         />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta
           name="tags"
           content="internship, job, new grad, jobbly, software engineering"
