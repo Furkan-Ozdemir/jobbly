@@ -10,27 +10,27 @@ async function createUser(email, password, name) {
     style: { fontSize: "1.5rem" },
   });
 
-  await fetch("/api/auth/signup", {
-    method: "POST",
-    body: JSON.stringify({ email, password, name }),
-    headers: {
-      "Content-Type": "application/json",
-    },
-  })
-    .then((res) => res.json())
-    .then((data) => {
-      toast.dismiss(loadingToast);
-
-      if (data.ok) {
-        toast.success("User created!");
-      } else {
-        toast.error(data.message || "Cannot create user! Try again later");
-      }
-    })
-    .catch((err) => {
-      toast.dismiss(loadingToast);
-      toast.error(err.message || "Something went wrong! Try again later");
+  try {
+    const response = await fetch("/api/auth/signup", {
+      method: "POST",
+      body: JSON.stringify({ email, password, name }),
+      headers: {
+        "Content-Type": "application/json",
+      },
     });
+
+    const data = await response.json();
+    toast.dismiss(loadingToast);
+
+    if (data.ok) {
+      toast.success("User created!");
+    } else {
+      toast.error(data.message || "Cannot create user! Try again later");
+    }
+  } catch (err) {
+    toast.dismiss(loadingToast);
+    toast.error(err.message || "Something went wrong! Try again later");
+  }
 }
 
 export default function Auth() {
