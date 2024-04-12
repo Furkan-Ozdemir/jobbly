@@ -2,9 +2,8 @@ import React, { useState } from "react";
 import styles from "./styles.module.css";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { signIn } from "next-auth/react";
+import { signIn, getSession } from "next-auth/react";
 import toast from "react-hot-toast";
-
 async function createUser(email, password, name) {
   const loadingToast = toast.loading("Signing up...", {
     style: { fontSize: "1.5rem" },
@@ -42,23 +41,25 @@ export default function Auth() {
   const [disabled, setDisabled] = useState(false);
 
   async function submitHandler(event) {
-    console.log("here");
     event.preventDefault();
     setDisabled(true);
-    // optional: Add client-side validation
     if (action === "login") {
       // log user in
       try {
+        const loadingToast = toast.loading("Logging in...");
         const result = await signIn("credentials", {
           redirect: false,
           email,
           password,
           name,
         });
+        toast.dismiss(loadingToast);
+        toast.success("Logged in successfully!");
         console.log(result);
       } catch (err) {
         console.error(err);
       } finally {
+        router.push("/");
         setDisabled(false);
       }
     }
@@ -68,6 +69,7 @@ export default function Auth() {
       } catch (err) {
         console.error(err);
       } finally {
+        router.push("/auth?action=login");
         setDisabled(false);
       }
     }
@@ -147,4 +149,20 @@ export default function Auth() {
       </div>
     </div>
   );
+}
+
+export async function getServerSideProps(context) {
+  const session = await getSession({ req: context.req });
+
+  if (session) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
+  return {
+    props: {},
+  };
 }

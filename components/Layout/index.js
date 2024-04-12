@@ -2,7 +2,7 @@ import { Fragment } from "react";
 
 import Navbar from "@/components/Navbar";
 
-function Layout(props) {
+export default function Layout(props) {
   return (
     <Fragment>
       <Navbar />
@@ -10,5 +10,3 @@ function Layout(props) {
     </Fragment>
   );
 }
-
-export default Layout;

@@ -25,3 +25,12 @@
 .nav .internships {
   justify-self: end;
 }
+
+.login button {
+  border: none;
+  outline: none;
+  background-color: transparent;
+  color: var(--white);
+  cursor: pointer;
+  font-size: 2rem;
+}
