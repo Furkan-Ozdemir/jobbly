@@ -3,6 +3,7 @@ import Link from "next/link";
 import Tag from "../Tag";
 import { formatDateDifference } from "@/utils/formatDate";
 import styles from "./style.module.css";
+import AnimatedLink from "../AnimatedLink/AnimatedLink";
 export default function JobItem({
   data,
   loading,
@@ -44,7 +45,7 @@ export default function JobItem({
     <ul>
       {data.map((job) => (
         <li key={job._id}>
-          <Link href={`/jobs/${job._id}`}>
+          <AnimatedLink href={`/jobs/${job._id}`}>
             <div className="flex spaceBetween">
               <div>
                 <h2 className={styles.company}>{job.company}</h2>
@@ -63,7 +64,7 @@ export default function JobItem({
                 <Tag key={skill}>{skill}</Tag>
               ))}
             </div>
-          </Link>
+          </AnimatedLink>
         </li>
       ))}
     </ul>

@@ -3,6 +3,7 @@ import styles from "./style.module.css";
 import Link from "next/link";
 import { useSession, signOut } from "next-auth/react";
 import toast from "react-hot-toast";
+import AnimatedLink from "../AnimatedLink/AnimatedLink";
 
 export default function Navbar() {
   const { data: session, status } = useSession();
@@ -11,7 +12,6 @@ export default function Navbar() {
     try {
       const loadingToast = toast.loading("Logging out...");
       const response = await signOut();
-      console.log(response);
       toast.dismiss(loadingToast);
       toast.success("Logged out successfully!");
     } catch (e) {
@@ -22,14 +22,14 @@ export default function Navbar() {
 
   return (
     <nav className={styles.nav}>
-      <Link href="/">Jobbly</Link>
+      <AnimatedLink href="/">Jobbly</AnimatedLink>
       <div className={styles.internships}>
-        <Link href="/internships">Internships</Link>
+        <AnimatedLink href="/internships">Internships</AnimatedLink>
       </div>
       {!session && status !== "loading" && (
         <div className={styles.login}>
-          <Link href="/auth?action=signup">Sign Up</Link>
-          <Link href="/auth?action=login">Login</Link>
+          <AnimatedLink href="/auth?action=signup">Sign Up</AnimatedLink>
+          <AnimatedLink href="/auth?action=login">Login</AnimatedLink>
         </div>
       )}
       {session && (

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { signIn, getSession } from "next-auth/react";
 import toast from "react-hot-toast";
+import AnimatedLink from "@/components/AnimatedLink/AnimatedLink";
 async function createUser(email, password, name) {
   const loadingToast = toast.loading("Signing up...", {
     style: { fontSize: "1.5rem" },
@@ -55,7 +56,6 @@ export default function Auth() {
         });
         toast.dismiss(loadingToast);
         toast.success("Logged in successfully!");
-        console.log(result);
       } catch (err) {
         console.error(err);
       } finally {
@@ -131,16 +131,22 @@ export default function Auth() {
               {action === "login" ? (
                 <>
                   Don&apos;t Have an Account?{" "}
-                  <Link href="/auth?action=signup" className={styles.link}>
+                  <AnimatedLink
+                    href="/auth?action=signup"
+                    className={styles.link}
+                  >
                     Signup Here!
-                  </Link>
+                  </AnimatedLink>
                 </>
               ) : (
                 <>
                   Have an Account?{" "}
-                  <Link href="/auth?action=login" className={styles.link}>
+                  <AnimatedLink
+                    href="/auth?action=login"
+                    className={styles.link}
+                  >
                     Login Here!
-                  </Link>
+                  </AnimatedLink>
                 </>
               )}
             </p>
