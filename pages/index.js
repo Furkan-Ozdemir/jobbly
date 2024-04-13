@@ -1,14 +1,15 @@
 import Image from "next/image";
 import styles from "@/styles/index.module.css";
 import Tag from "@/components/Tag";
-import gsap from "gsap"; // <-- import GSAP
-import { useGSAP } from "@gsap/react"; // <-- import the hook from our React package
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
 import { useRef } from "react";
 import { TextPlugin } from "gsap/dist/TextPlugin";
 import useSWRInfinite from "swr/infinite";
 import Jobs from "@/components/Jobs/Jobs";
-import { formatDateDifference } from "@/utils/formatDate";
 import { connectToDatabase } from "@/db/db";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 
 gsap.registerPlugin(useGSAP, TextPlugin);
 const TAGS = [
@@ -35,6 +36,8 @@ export default function Home({ jobData }) {
     fetcher,
     { fallbackData: [jobData], revalidateOnFocus: false }
   );
+  const router = useRouter();
+  const { data: session } = useSession();
   const jobs = data ? [].concat(...data) : [];
   const isLoadingMore =
     isLoading || (size > 0 && data && typeof data[size - 1] === "undefined");
@@ -96,17 +99,27 @@ export default function Home({ jobData }) {
           <input type="text" placeholder="Job Types" />
         </div>
       </section>
-      <button
-        disabled={isLoadingMore || isReachingEnd}
-        onClick={() => setSize(size + 1)}
-        className={styles.loadMore}
-      >
-        {isLoadingMore
-          ? "loading..."
-          : isReachingEnd
-          ? "no more issues"
-          : "load more"}
-      </button>
+      {session ? (
+        <button
+          disabled={isLoadingMore || isReachingEnd}
+          onClick={() => setSize(size + 1)}
+          className={styles.loadMore}
+        >
+          {isLoadingMore
+            ? "loading..."
+            : isReachingEnd
+            ? "no more issues"
+            : "load more"}
+        </button>
+      ) : (
+        <button
+          onClick={() => router.replace("/auth?action=signup")}
+          className={styles.loadMore}
+        >
+          Login to view more
+        </button>
+      )}
+
       <section className={styles.jobs}>
         <Jobs
           data={jobs}
