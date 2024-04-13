@@ -70,3 +70,21 @@
   text-decoration: none;
   color: inherit;
 }
+
+.loadMore {
+  position: fixed;
+  bottom: 0;
+  padding: 1rem;
+  text-transform: capitalize;
+  background-color: var(--light-green);
+  cursor: pointer;
+  right: 0;
+  opacity: 0.8;
+  font-size: 2rem;
+}
+.loadMore:active {
+  transform: translateY(2px);
+}
+.loadMore:hover {
+  opacity: 1;
+}

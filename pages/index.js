@@ -3,11 +3,12 @@ import styles from "@/styles/index.module.css";
 import Tag from "@/components/Tag";
 import gsap from "gsap"; // <-- import GSAP
 import { useGSAP } from "@gsap/react"; // <-- import the hook from our React package
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { TextPlugin } from "gsap/dist/TextPlugin";
-import Link from "next/link";
 import useSWRInfinite from "swr/infinite";
 import Jobs from "@/components/Jobs/Jobs";
+import { formatDateDifference } from "@/utils/formatDate";
+import { connectToDatabase } from "@/db/db";
 
 gsap.registerPlugin(useGSAP, TextPlugin);
 const TAGS = [
@@ -28,10 +29,11 @@ const TAGS = [
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
-export default function Home() {
-  const { data, size, setSize, isLoading } = useSWRInfinite(
+export default function Home({ jobData }) {
+  const { data, size, setSize, isLoading, error } = useSWRInfinite(
     (index) => `/api/jobs/?page=${index + 1}&limit=${10}`,
-    fetcher
+    fetcher,
+    { fallbackData: [jobData] }
   );
   const jobs = data ? [].concat(...data) : [];
   const isLoadingMore =
@@ -97,6 +99,7 @@ export default function Home() {
       <button
         disabled={isLoadingMore || isReachingEnd}
         onClick={() => setSize(size + 1)}
+        className={styles.loadMore}
       >
         {isLoadingMore
           ? "loading..."
@@ -110,41 +113,42 @@ export default function Home() {
           loading={isLoadingMore}
           isEmpty={isEmpty}
           isReachingEnd={isReachingEnd}
+          error={error}
         />
       </section>
     </>
   );
 }
 
-// export async function getStaticProps() {
-//   const limit = 10;
-//   let jobData;
-//   try {
-//     const client = await connectToDatabase();
-//     const jobsCollection = client.db().collection("jobs");
-//     const posts = await jobsCollection
-//       .find({})
-//       .skip(0)
-//       .limit(parseInt(limit))
-//       .toArray();
-//     client.close();
+export async function getStaticProps() {
+  const limit = 10;
+  let jobData;
+  try {
+    const client = await connectToDatabase();
+    const jobsCollection = client.db().collection("jobs");
+    const posts = await jobsCollection
+      .find({})
+      .skip(0)
+      .limit(parseInt(limit))
+      .toArray();
+    client.close();
 
-//     jobData = posts.map((post) => {
-//       return {
-//         id: post._id.toString(),
-//         company: post.company,
-//         role: post.role,
-//         datePosted: formatDateDifference(post.datePosted, new Date()),
-//         skills: post.skills,
-//       };
-//     });
-//   } catch (error) {
-//     console.log(error);
-//   } finally {
-//     return {
-//       props: {
-//         jobData,
-//       },
-//     };
-//   }
-// }
+    jobData = posts.map((post) => {
+      return {
+        id: post._id.toString(),
+        company: post.company,
+        role: post.role,
+        datePosted: formatDateDifference(post.datePosted, new Date()),
+        skills: post.skills,
+      };
+    });
+  } catch (error) {
+    console.log(error);
+  } finally {
+    return {
+      props: {
+        jobData,
+      },
+    };
+  }
+}
