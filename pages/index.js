@@ -8,7 +8,7 @@ import { TextPlugin } from "gsap/dist/TextPlugin";
 import Link from "next/link";
 import useSWRInfinite from "swr/infinite";
 import { connectToDatabase } from "@/db/db";
-import JobItem from "@/components/JobItem/JobItem";
+import Jobs from "@/components/Jobs/Jobs";
 
 gsap.registerPlugin(useGSAP, TextPlugin);
 const TAGS = [
@@ -86,7 +86,7 @@ export default function Home({ data }) {
         </div>
       </section>
       <section className={styles.jobs}>
-        <JobItem data={data} />
+        <Jobs data={data} />
       </section>
     </>
   );
