@@ -3,10 +3,12 @@ import styles from "@/styles/index.module.css";
 import Tag from "@/components/Tag";
 import gsap from "gsap"; // <-- import GSAP
 import { useGSAP } from "@gsap/react"; // <-- import the hook from our React package
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { TextPlugin } from "gsap/dist/TextPlugin";
 import Link from "next/link";
 import useSWRInfinite from "swr/infinite";
+import { connectToDatabase } from "@/db/db";
+import JobItem from "@/components/JobItem/JobItem";
 
 gsap.registerPlugin(useGSAP, TextPlugin);
 const TAGS = [
@@ -27,6 +29,7 @@ const TAGS = [
 
 export default function Home({ data }) {
   //TODO useSwr kullanarak load more butonu yapılabilir
+
   const ref = useRef(null);
   useGSAP(() => {
     const tl = gsap.timeline({
@@ -83,54 +86,42 @@ export default function Home({ data }) {
         </div>
       </section>
       <section className={styles.jobs}>
-        <ul>
-          {data.map((job) => (
-            <li key={job.id}>
-              <Link href={`/jobs/${job.id}`}>
-                <div className="flex spaceBetween">
-                  <div>
-                    <h2 className={styles.company}>{job.company}</h2>
-                    <p className={styles.role}>{job.role}</p>
-                  </div>
-                  <div className={`flexColumn ${styles.date}`}>
-                    <span>POSTED</span>
-                    <span>{job.datePosted.split(" ")[0]}</span>
-                    <span>
-                      {job.datePosted.split(" ")[1]}{" "}
-                      {job.datePosted.split(" ")[2]}
-                    </span>
-                  </div>
-                </div>
-                <div className={styles.skills}>
-                  {job.skills.split(",").map((skill) => (
-                    <Tag key={skill}>{skill}</Tag>
-                  ))}
-                </div>
-              </Link>
-            </li>
-          ))}
-        </ul>
+        <JobItem data={data} />
       </section>
     </>
   );
 }
 
 export async function getStaticProps() {
-  console.log("running");
-  const res = await fetch(
-    "https://jobbly-e5e79-default-rtdb.firebaseio.com/jobs.json"
-  );
-  const data = await res.json();
-  for (const job in data) {
-    const datePosted = formatDateDifference(data[job].datePosted, new Date());
-    data[job].datePosted = datePosted;
+  const limit = 10;
+  const client = await connectToDatabase();
+  const jobsCollection = client.db().collection("jobs");
+  let data;
+  try {
+    const posts = await jobsCollection
+      .find({})
+      .skip(0)
+      .limit(parseInt(limit))
+      .toArray();
+    data = posts.map((post) => {
+      return {
+        id: post._id.toString(),
+        company: post.company,
+        role: post.role,
+        datePosted: formatDateDifference(post.datePosted, new Date()),
+        skills: post.skills,
+      };
+    });
+  } catch (error) {
+    console.log(error);
+  } finally {
+    client.close();
+    return {
+      props: {
+        data,
+      },
+    };
   }
-  return {
-    props: {
-      data,
-    },
-    revalidate: 600,
-  };
 }
 function formatDateDifference(date1, date2) {
   const diffInMs = new Date(date2) - new Date(date1);
