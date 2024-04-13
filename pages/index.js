@@ -33,7 +33,7 @@ export default function Home({ jobData }) {
   const { data, size, setSize, isLoading, error } = useSWRInfinite(
     (index) => `/api/jobs/?page=${index + 1}&limit=${10}`,
     fetcher,
-    { fallbackData: [jobData] }
+    { fallbackData: [jobData], revalidateOnFocus: false }
   );
   const jobs = data ? [].concat(...data) : [];
   const isLoadingMore =
@@ -135,11 +135,8 @@ export async function getStaticProps() {
 
     jobData = posts.map((post) => {
       return {
-        id: post._id.toString(),
-        company: post.company,
-        role: post.role,
-        datePosted: formatDateDifference(post.datePosted, new Date()),
-        skills: post.skills,
+        ...post,
+        _id: post._id.toString(),
       };
     });
   } catch (error) {

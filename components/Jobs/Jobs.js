@@ -43,8 +43,8 @@ export default function JobItem({
   return (
     <ul>
       {data.map((job) => (
-        <li key={job.id}>
-          <Link href={`/jobs/${job.id}`}>
+        <li key={job._id}>
+          <Link href={`/jobs/${job._id}`}>
             <div className="flex spaceBetween">
               <div>
                 <h2 className={styles.company}>{job.company}</h2>
