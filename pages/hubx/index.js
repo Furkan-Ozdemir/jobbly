@@ -1,15 +1,18 @@
 export default function index() {
   return (
     <main style={{ fontSize: "2rem" }}>
-      bu uygulamayi hubx te ise girmek icin yapiyorum
+      hubx frontend gereksinimleri
       <article>
         <ul>
           <li style={{ textDecoration: "line-through" }}>
             Experience with static-generated web pages using Next.js framework.
           </li>
           <li>
-            Ability to create and maintain accessible and SEO optimized web
-            pages that comfort WCAG.
+            <span style={{ textDecoration: "line-through" }}>
+              Ability to create and maintain accessible and SEO optimized web
+              pages
+            </span>{" "}
+            that comfort WCAG.
           </li>
           <li style={{ textDecoration: "line-through" }}>
             Expert knowledge of vanilla CSS. Ability to make complex UI
