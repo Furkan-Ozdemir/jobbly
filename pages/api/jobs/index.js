@@ -1,7 +1,7 @@
 import { connectToDatabase } from "@/db/db";
 
 export default async function handler(req, res) {
-  const { page = 2, limit = 10 } = req.query;
+  const { page = 1, limit = 10 } = req.query;
   const skip = (page - 1) * limit;
 
   const client = await connectToDatabase();

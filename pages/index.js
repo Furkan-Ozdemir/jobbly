@@ -7,7 +7,6 @@ import { useEffect, useRef } from "react";
 import { TextPlugin } from "gsap/dist/TextPlugin";
 import Link from "next/link";
 import useSWRInfinite from "swr/infinite";
-import { connectToDatabase } from "@/db/db";
 import Jobs from "@/components/Jobs/Jobs";
 
 gsap.registerPlugin(useGSAP, TextPlugin);
@@ -27,8 +26,18 @@ const TAGS = [
   "Other",
 ];
 
-export default function Home({ data }) {
-  //TODO useSwr kullanarak load more butonu yapılabilir
+const fetcher = (url) => fetch(url).then((res) => res.json());
+
+export default function Home() {
+  const { data, size, setSize, isLoading } = useSWRInfinite(
+    (index) => `/api/jobs/?page=${index + 1}&limit=${10}`,
+    fetcher
+  );
+  const jobs = data ? [].concat(...data) : [];
+  const isLoadingMore =
+    isLoading || (size > 0 && data && typeof data[size - 1] === "undefined");
+  const isEmpty = data?.[0]?.length === 0;
+  const isReachingEnd = isEmpty || (data && data[data.length - 1]?.length < 10);
 
   const ref = useRef(null);
   useGSAP(() => {
@@ -85,60 +94,57 @@ export default function Home({ data }) {
           <input type="text" placeholder="Job Types" />
         </div>
       </section>
+      <button
+        disabled={isLoadingMore || isReachingEnd}
+        onClick={() => setSize(size + 1)}
+      >
+        {isLoadingMore
+          ? "loading..."
+          : isReachingEnd
+          ? "no more issues"
+          : "load more"}
+      </button>
       <section className={styles.jobs}>
-        <Jobs data={data} />
+        <Jobs
+          data={jobs}
+          loading={isLoadingMore}
+          isEmpty={isEmpty}
+          isReachingEnd={isReachingEnd}
+        />
       </section>
     </>
   );
 }
 
-export async function getStaticProps() {
-  const limit = 10;
-  const client = await connectToDatabase();
-  const jobsCollection = client.db().collection("jobs");
-  let data;
-  try {
-    const posts = await jobsCollection
-      .find({})
-      .skip(0)
-      .limit(parseInt(limit))
-      .toArray();
-    data = posts.map((post) => {
-      return {
-        id: post._id.toString(),
-        company: post.company,
-        role: post.role,
-        datePosted: formatDateDifference(post.datePosted, new Date()),
-        skills: post.skills,
-      };
-    });
-  } catch (error) {
-    console.log(error);
-  } finally {
-    client.close();
-    return {
-      props: {
-        data,
-      },
-    };
-  }
-}
-function formatDateDifference(date1, date2) {
-  const diffInMs = new Date(date2) - new Date(date1);
-  const diffInDays = Math.floor(diffInMs / (1000 * 60 * 60 * 24));
+// export async function getStaticProps() {
+//   const limit = 10;
+//   let jobData;
+//   try {
+//     const client = await connectToDatabase();
+//     const jobsCollection = client.db().collection("jobs");
+//     const posts = await jobsCollection
+//       .find({})
+//       .skip(0)
+//       .limit(parseInt(limit))
+//       .toArray();
+//     client.close();
 
-  if (diffInDays < 7) {
-    return `${diffInDays} days ago`;
-  } else if (diffInDays < 14) {
-    return "1 week ago";
-  } else if (diffInDays < 30) {
-    const weeks = Math.floor(diffInDays / 7);
-    return `${weeks} weeks ago`;
-  } else if (diffInDays < 365) {
-    const months = Math.floor(diffInDays / 30);
-    return `${months} months ago`;
-  } else {
-    const years = Math.floor(diffInDays / 365);
-    return `${years} years ago`;
-  }
-}
+//     jobData = posts.map((post) => {
+//       return {
+//         id: post._id.toString(),
+//         company: post.company,
+//         role: post.role,
+//         datePosted: formatDateDifference(post.datePosted, new Date()),
+//         skills: post.skills,
+//       };
+//     });
+//   } catch (error) {
+//     console.log(error);
+//   } finally {
+//     return {
+//       props: {
+//         jobData,
+//       },
+//     };
+//   }
+// }

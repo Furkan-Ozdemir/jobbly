@@ -2,8 +2,33 @@ import React from "react";
 import Link from "next/link";
 import Tag from "../Tag";
 import styles from "./style.module.css";
-
-export default function JobItem({ data }) {
+export default function JobItem({ data, loading, isEmpty, isReachingEnd }) {
+  if (loading)
+    return (
+      <ul className={styles.loaderContainer}>
+        <div className={styles.loader}></div>
+      </ul>
+    );
+  else if (isEmpty)
+    return (
+      <ul>
+        <h2>No jobs found</h2>
+      </ul>
+    );
+  else if (isReachingEnd)
+    return (
+      <ul>
+        <h2>End of jobs</h2>
+      </ul>
+    );
+  else if (!loading && data) {
+    data = data.map((job) => {
+      return {
+        ...job,
+        datePosted: formatDateDifference(job.datePosted, new Date()),
+      };
+    });
+  }
   return (
     <ul>
       {data.map((job) => (
@@ -32,4 +57,23 @@ export default function JobItem({ data }) {
       ))}
     </ul>
   );
+}
+function formatDateDifference(date1, date2) {
+  const diffInMs = new Date(date2) - new Date(date1);
+  const diffInDays = Math.floor(diffInMs / (1000 * 60 * 60 * 24));
+
+  if (diffInDays < 7) {
+    return `${diffInDays} days ago`;
+  } else if (diffInDays < 14) {
+    return "1 week ago";
+  } else if (diffInDays < 30) {
+    const weeks = Math.floor(diffInDays / 7);
+    return `${weeks} weeks ago`;
+  } else if (diffInDays < 365) {
+    const months = Math.floor(diffInDays / 30);
+    return `${months} months ago`;
+  } else {
+    const years = Math.floor(diffInDays / 365);
+    return `${years} years ago`;
+  }
 }
