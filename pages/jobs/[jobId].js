@@ -4,6 +4,8 @@ import styles from "./styles.module.css";
 import Tag from "@/components/Tag";
 import Loader from "@/components/Loader";
 import Head from "next/head";
+import { connectToDatabase } from "@/db/db";
+import { ObjectId } from "mongodb";
 
 export default function jobid({ job }) {
   if (!job) return <Loader />;
@@ -58,14 +60,14 @@ export default function jobid({ job }) {
       </section>
       <section className={styles.jobExplanations}>
         <div>
-          <p className={styles.about_the_role}>
-            <p>
+          <div className={styles.about_the_role}>
+            <div>
               <em>
-                <b>About the role:</b>
+                <b> About the role:</b>
               </em>
-            </p>
+            </div>
             {job.about_the_role}
-          </p>
+          </div>
           <ul className={styles.skills}>
             <p>
               <em>
@@ -82,40 +84,52 @@ export default function jobid({ job }) {
     </>
   );
 }
-async function getData() {
-  const res = await fetch(
-    "https://jobbly-e5e79-default-rtdb.firebaseio.com/jobs.json"
-  );
-  const data = await res.json();
-  return data;
+async function getJob(jobId) {
+  const convertedId = new ObjectId(jobId);
+  try {
+    const client = await connectToDatabase();
+    const job = await client
+      .db()
+      .collection("jobs")
+      .findOne({ _id: convertedId });
+    return job;
+  } catch (err) {
+    console.log(err);
+    return {};
+  }
 }
 
 export async function getStaticProps(context) {
-  //TODO Burayi sonradan duzelt tum datayi cekmesin
-  //belki graphql ile yaparsin
   const { params } = context;
   const jobId = params.jobId;
-  const data = await getData();
-  const job = data.find((job) => job.id === jobId);
-  if (!job) return { notFound: true };
-
-  return {
-    props: {
-      job,
-    },
-  };
+  try {
+    const returnedJob = await getJob(jobId);
+    const job = JSON.parse(JSON.stringify(returnedJob));
+    if (!returnedJob) return { props: {} };
+    return {
+      props: {
+        job,
+      },
+      revalidate: 1,
+    };
+  } catch (err) {
+    throw new Error("Failed to fetch job data");
+  }
 }
 export async function getStaticPaths() {
-  const data = await getData();
-
-  const turkishJobs = data.filter((job) => job.location === "Turkey");
-  const turkishJobIds = turkishJobs.map((job) => job.id);
-  const pathsWithParams = turkishJobIds.map((id) => ({
-    params: { jobId: id },
-  }));
-
   return {
-    paths: pathsWithParams,
+    paths: [
+      { params: { jobId: "661a661d60aff90975a694cb" } },
+      { params: { jobId: "661a661d60aff90975a694cc" } },
+      { params: { jobId: "661a661d60aff90975a694cd" } },
+      { params: { jobId: "661a661d60aff90975a694ce" } },
+      { params: { jobId: "661a661d60aff90975a694cf" } },
+      { params: { jobId: "661a661d60aff90975a694d0" } },
+      { params: { jobId: "661a661d60aff90975a694d1" } },
+      { params: { jobId: "661a661d60aff90975a694d2" } },
+      { params: { jobId: "661a661d60aff90975a694d3" } },
+      { params: { jobId: "661a661d60aff90975a694d4" } },
+    ],
     fallback: true,
   };
 }
