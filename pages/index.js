@@ -3,7 +3,7 @@ import styles from "@/styles/index.module.css";
 import Tag from "@/components/Tag";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { TextPlugin } from "gsap/dist/TextPlugin";
 import useSWRInfinite from "swr/infinite";
 import Jobs from "@/components/Jobs/Jobs";
@@ -13,19 +13,16 @@ import { useRouter } from "next/router";
 
 gsap.registerPlugin(useGSAP, TextPlugin);
 const TAGS = [
-  "Marketing",
-  "Engineering",
-  "Design",
-  "Product",
-  "Sales",
-  "Finance",
-  "Operations",
-  "Data",
-  "Legal",
-  "HR",
-  "IT",
-  "Admin",
-  "Other",
+  "Next.js",
+  "React",
+  "Javascript",
+  "CSS",
+  "HTML",
+  "GSAP",
+  "React-Native",
+  "OOP",
+  "webpack",
+  "SCSS",
 ];
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
@@ -36,6 +33,8 @@ export default function Home({ jobData }) {
     fetcher,
     { fallbackData: [jobData], revalidateOnFocus: false }
   );
+  const [title, setTitle] = useState("");
+
   const router = useRouter();
   const { data: session } = useSession();
   const jobs = data ? [].concat(...data) : [];
@@ -87,17 +86,27 @@ export default function Home({ jobData }) {
       <section className={styles.jobsFiltering}>
         <div className={styles.filter}>Job title or keyword</div>
         <div className={styles.inputContainer}>
-          <input type="text" placeholder="Designer" />
+          <input
+            type="text"
+            placeholder="Title"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+          />
         </div>
-        <div className={styles.inputContainer}>
+        {/* <div className={styles.inputContainer}>
           <input type="text" placeholder="Level" />
-        </div>
-        <div className={styles.inputContainer}>
-          <input type="text" placeholder="Location" />
-        </div>
-        <div className={styles.inputContainer}>
+        </div> */}
+        {/* <div className={styles.inputContainer}>
+          <input
+            type="text"
+            placeholder="Location"
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
+          />
+        </div> */}
+        {/* <div className={styles.inputContainer}>
           <input type="text" placeholder="Job Types" />
-        </div>
+        </div> */}
       </section>
       {session ? (
         <button
@@ -106,10 +115,10 @@ export default function Home({ jobData }) {
           className={styles.loadMore}
         >
           {isLoadingMore
-            ? "loading..."
+            ? "Loading..."
             : isReachingEnd
-            ? "no more issues"
-            : "load more"}
+            ? "No More Jobs Available"
+            : "Load more"}
         </button>
       ) : (
         <button
@@ -127,6 +136,7 @@ export default function Home({ jobData }) {
           isEmpty={isEmpty}
           isReachingEnd={isReachingEnd}
           error={error}
+          filter={title}
         />
       </section>
     </>
