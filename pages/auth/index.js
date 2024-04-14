@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import styles from "./styles.module.css";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import { signIn, getSession } from "next-auth/react";
 import toast from "react-hot-toast";

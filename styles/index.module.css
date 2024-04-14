@@ -26,7 +26,7 @@
   border: 1px solid var(--green);
   border-top: none;
   display: grid;
-  grid-template-columns: repeat(5, minmax(100px, 1fr));
+  grid-template-columns: repeat(4, minmax(100px, 1fr));
 }
 .jobsFiltering .filter {
   padding: 1rem;
@@ -87,4 +87,13 @@
 }
 .loadMore:hover {
   opacity: 1;
+}
+.btn {
+  font-size: 15px;
+  background: #a5b497;
+  width: 100%;
+  cursor: pointer;
+}
+.btn:hover {
+  background: #7f8c7a;
 }
