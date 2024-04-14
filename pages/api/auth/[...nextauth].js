@@ -20,10 +20,8 @@ export const authOptions = {
           !user ||
           !(await bcrypt.compare(credentials.password, user.password))
         ) {
-          client.close();
           throw new Error("No user found or wrong password");
         }
-        client.close();
         return { email: user.email, name: user.name };
       },
     }),

@@ -154,7 +154,6 @@ export async function getStaticProps() {
       .skip(0)
       .limit(parseInt(limit))
       .toArray();
-    client.close();
 
     jobData = posts.map((post) => {
       return {

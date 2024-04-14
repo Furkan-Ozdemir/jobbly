@@ -13,7 +13,6 @@ export default async function handler(req, res) {
   if (existingUser) {
     res.status(422).json({ message: "User already exists!", ok: false });
     res.body = "User exists already!";
-    client.close();
     return;
   }
   const { email, password, name } = req.body;
@@ -25,7 +24,6 @@ export default async function handler(req, res) {
     !name
   ) {
     res.status(422).json({ message: "Invalid input", ok: false });
-    client.close();
     return;
   }
   const hashedPassword = await bcrypt.hash(password, 12);
