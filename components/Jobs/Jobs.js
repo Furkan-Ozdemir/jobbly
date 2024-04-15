@@ -58,7 +58,7 @@ export default function JobItem({
           <li key={job._id}>
             <AnimatedLink href={`/jobs/${job._id}`}>
               <div className="flex spaceBetween">
-                <div>
+                <div className={styles.jobContainer}>
                   <h2 className={styles.company}>{job.company}</h2>
                   <p className={styles.role}>{job.role}</p>
                 </div>
@@ -88,7 +88,7 @@ export default function JobItem({
         <li key={job._id}>
           <AnimatedLink href={`/jobs/${job._id}`}>
             <div className="flex spaceBetween">
-              <div>
+              <div className={styles.jobContainer}>
                 <h2 className={styles.company}>{job.company}</h2>
                 <p className={styles.role}>{job.role}</p>
               </div>

@@ -73,6 +73,7 @@ export default function Home({ jobData }) {
           width={500}
           height={500}
           priority
+          className={styles.image}
         />
       </section>
       <section className={styles.jobsTags}>
@@ -88,7 +89,7 @@ export default function Home({ jobData }) {
         <div className={styles.inputContainer}>
           <input
             type="text"
-            placeholder="Title"
+            placeholder="Frontend Developer, Software Engineer, etc."
             value={title}
             onChange={(e) => setTitle(e.target.value)}
           />

@@ -1,10 +1,12 @@
+.jobContainer {
+  padding-left: 2rem;
+}
+
 .company {
   font-size: 4rem;
-  padding-left: 2rem;
 }
 .role {
   font-size: 4rem;
-  padding-left: 2rem;
   color: var(--green);
 }
 .date {
@@ -45,5 +47,29 @@
   }
   80% {
     background-position: 0% 50%, 50% 50%, 100% 100%;
+  }
+}
+
+@media (width <= 768px) {
+  .company {
+    font-size: 2rem;
+  }
+  .role {
+    font-size: 2rem;
+  }
+  .date {
+    font-size: 1rem;
+  }
+  .date span:nth-child(2) {
+    font-size: 2rem;
+  }
+}
+
+@media (width <=425px) {
+  .jobContainer {
+    padding-left: 0.6rem;
+  }
+  .skills {
+    padding-left: 0;
   }
 }

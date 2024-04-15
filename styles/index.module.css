@@ -29,6 +29,8 @@
   grid-template-columns: 1fr 2fr;
 }
 .jobsFiltering .filter {
+  display: grid;
+  align-items: center;
   padding: 1rem;
 }
 .inputContainer {
@@ -96,4 +98,65 @@
 }
 .btn:hover {
   background: #7f8c7a;
+}
+/* Small devices such as large phones (640px and up) */
+/* Medium devices such as tablets (768px and up) */
+/* Large devices such as laptops (1024px and up) */
+/* Largest devices such as desktops (1280px and up) */
+@media (width <= 1280px) {
+  .section h1 {
+    font-size: 3rem;
+  }
+
+  .image {
+    width: 400px;
+    height: auto;
+  }
+}
+@media (width <= 768px) {
+  .image {
+    width: 300px;
+  }
+  .tags {
+    font-size: 1.5rem;
+  }
+  .jobsFiltering {
+    font-size: 1.5rem;
+  }
+}
+
+@media (width <=640px) {
+  .tags {
+    font-size: 1.2rem;
+  }
+  .section {
+    flex-direction: column;
+  }
+  .image {
+    width: 200px;
+  }
+  .section header {
+    width: auto;
+  }
+}
+
+@media (width<= 462px) {
+  .jobsFiltering {
+    grid-template-columns: 1fr;
+  }
+  .filter {
+    place-items: center;
+    border-bottom: 1px solid var(--green);
+  }
+  .inputContainer {
+    border-left: none;
+  }
+}
+@media (width <=334px) {
+  .section h1 {
+    font-size: 2rem;
+  }
+  .image {
+    width: 150px;
+  }
 }
