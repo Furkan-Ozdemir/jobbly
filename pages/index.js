@@ -80,7 +80,15 @@ export default function Home({ jobData }) {
         <div className={styles.tags}>
           <span>Popular Search:</span>
           {TAGS.map((tag) => (
-            <Tag key={tag}>{tag}</Tag>
+            <Tag
+              key={tag}
+              onClick={() => {
+                setTitle(tag);
+              }}
+              style={{ cursor: "pointer" }}
+            >
+              {tag}
+            </Tag>
           ))}
         </div>
       </section>
