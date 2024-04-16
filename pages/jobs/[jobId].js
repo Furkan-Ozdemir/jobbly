@@ -28,6 +28,7 @@ export default function jobid({ job }) {
           alt="a monitor with a documents on it"
           width={400}
           height={400}
+          className={styles.image}
         />
       </section>
       <section>

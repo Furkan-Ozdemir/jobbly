@@ -61,3 +61,62 @@
 .jobExplanations h5 {
   margin-bottom: 1rem;
 }
+@media (width <= 1280px) {
+  .section h1 {
+    font-size: 3rem;
+  }
+
+  .image {
+    width: 400px;
+    height: auto;
+  }
+}
+@media (width <= 768px) {
+  .image {
+    width: 300px;
+  }
+  .tags {
+    font-size: 1.5rem;
+  }
+  .jobExplanations > div {
+    grid-template-columns: 1fr;
+  }
+  .skills li {
+    margin-left: 2rem;
+  }
+}
+@media (width <= 640px) {
+  .section {
+    flex-direction: column;
+  }
+  .image {
+    width: 200px;
+  }
+  .section header {
+    width: auto;
+  }
+  .tags {
+    font-size: 1.2rem;
+  }
+  .about_the_role {
+    font-size: 1.5rem;
+  }
+  .skills {
+    font-size: 1.5rem;
+  }
+  .jobDetails div > p:first-child {
+    font-size: 1rem;
+  }
+  .jobDetails div > p:last-child {
+    font-size: 1.5rem;
+  }
+}
+@media (width <= 416px) {
+  .jobDetails {
+    grid-template-columns: 1fr 1fr;
+  }
+  .jobDetails > div:first-child,
+  .jobDetails > div:nth-child(2) {
+    border-bottom: 1px solid var(--green);
+  }
+}
