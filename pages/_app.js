@@ -5,6 +5,7 @@ import Layout from "@/components/Layout";
 import { SessionProvider } from "next-auth/react";
 import { Toaster } from "react-hot-toast";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics } from "@vercel/analytics/react";
 
 export default function App({
   Component,
@@ -13,6 +14,7 @@ export default function App({
   return (
     <SessionProvider session={session}>
       <SpeedInsights />
+      <Analytics />
       <Layout>
         <Head>
           <title>Jobbly</title>
