@@ -4,6 +4,7 @@ import { ibmPlexSansHebrew } from "@/utils/fonts";
 import Layout from "@/components/Layout";
 import { SessionProvider } from "next-auth/react";
 import { Toaster } from "react-hot-toast";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 export default function App({
   Component,
@@ -11,6 +12,7 @@ export default function App({
 }) {
   return (
     <SessionProvider session={session}>
+      <SpeedInsights />
       <Layout>
         <Head>
           <title>Jobbly</title>

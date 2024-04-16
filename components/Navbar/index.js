@@ -1,6 +1,5 @@
 import React from "react";
 import styles from "./style.module.css";
-import Link from "next/link";
 import { useSession, signOut } from "next-auth/react";
 import toast from "react-hot-toast";
 import AnimatedLink from "../AnimatedLink/AnimatedLink";
@@ -24,7 +23,7 @@ export default function Navbar() {
     <nav className={styles.nav}>
       <AnimatedLink href="/">Jobbly</AnimatedLink>
       <div className={styles.internships}>
-        <AnimatedLink href="/internships">Internships</AnimatedLink>
+        <AnimatedLink href="/myjobs">My Jobs</AnimatedLink>
       </div>
       {!session && status !== "loading" && (
         <div className={styles.login}>
